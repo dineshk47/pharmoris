@@ -55,9 +55,3 @@ This enqueues a task which finds up to `limit` docs without embeddings and compu
 - **Search Tier**: consider a specialized ANN store (Milvus, FAISS, Weaviate) for millions of documents; keep Postgres for transactional data + audit logs.
 - **Security & GDPR**: rotate HMAC keys, rotate any API keys, keep audit logs immutable or export to long-term cold storage.
 - **Monitoring**: Prometheus + Grafana, Sentry for exceptions, and task queue observability.
-
-
-## To push to GitHub
-1. `git init`
-2. `git add . && git commit -m "Initial PHARMORIS backend"`
-3. Create a new repo on GitHub and follow the `git remote add` / `git push` steps.
