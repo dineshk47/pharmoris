@@ -18,7 +18,7 @@ Overall: The code base implements the core features: FastAPI endpoints, pgvector
 
 - PostgreSQL must run with the `pgvector` extension installed (or use an image such as `ankane/pgvector`). The app attempts to create the extension at startup, but the database container must allow creating extensions.
 - Celery worker and Redis must be started for background processing to work reliably. If unavailable, embedding computation falls back to a synchronous attempt and/or documents may have NULL embeddings.
-- Some DB drivers require the vector to be updated via an explicit SQL cast (`:emb::vector`). The code uses a safe insert-then-UPDATE approach and includes `scripts/fill_embeddings.py` to backfill missing embeddings.
+- Some DB drivers require the vector to be updated via an explicit SQL cast (`:emb::vector`). The code uses a safe insert-then-UPDATE approach and includes `app.utils.scripts.fill_embeddings` to backfill missing embeddings.
 
 Repository Structure (high-level)
 --------------------------------
@@ -42,7 +42,7 @@ Repository Structure (high-level)
 
 Other files
 -----------
-- scripts/fill_embeddings.py — CLI script to compute & update embeddings for rows with NULL embedding (safe `:emb::vector` updates).
+- app/utils/scripts/fill_embeddings.py — CLI script to compute & update embeddings for rows with NULL embedding (safe `:emb::vector` updates).
 - README.md — Project README (contains quickstart and design decisions). Please review for secrets or missing instructions.
 - requirements.txt — Python dependencies (ensure it contains `asyncpg`, `pgvector`, `prometheus-client`, `httpx`, `celery`, `redis`, etc.).
 - docker-compose.yml — Services for db (Postgres + pgvector), redis, web, and worker. Ensure the compose file references an image with `pgvector` or sets `shared_preload_libraries` and proper extensions.
@@ -116,7 +116,7 @@ celery -A app.utils.tasks worker --loglevel=info
 
 5) Backfill missing embeddings (if you have existing documents with NULL embeddings):
 ```cmd
-python scripts/fill_embeddings.py
+python -m app.utils.scripts.fill_embeddings
 ```
 
 Testing and verification

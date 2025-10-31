@@ -19,6 +19,19 @@
    ```bash
    docker-compose up -d
    ```
+3. Access the API at http://localhost:8000
+
+## Management Tools
+- Fill missing embeddings via CLI:
+  ```bash
+  python -m app.utils.scripts.fill_embeddings [--limit N]
+  ```
+- Or use the protected admin API:
+  ```bash
+  curl -X POST "http://localhost:8000/admin/fill-embeddings?limit=10" \
+       -H "X-API-Key: your-api-key"
+  ```
+   ```
 3. Access the API at `http://localhost:8000`
    - OpenAPI docs: `http://localhost:8000/docs`
 
