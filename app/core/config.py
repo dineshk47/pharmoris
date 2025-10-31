@@ -1,0 +1,22 @@
+from pydantic import AnyUrl
+from pydantic_settings import BaseSettings
+class Settings(BaseSettings):
+    APP_NAME: str = "phramoris-backend"
+    ENV: str = "development"
+    DEBUG: bool = True
+
+    DATABASE_URL: AnyUrl
+    USDA_API_KEY: str
+
+    JWT_SECRET_KEY: str
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
+
+    RATE_LIMIT_REQUESTS: int = 15
+    RATE_LIMIT_PERIOD_SECONDS: int = 60
+
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+
+settings = Settings()

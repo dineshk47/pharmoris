@@ -1,0 +1,13 @@
+0.9.0
+
+Changelog:
+
+0.9.0 (2025-10-31)
+------------------
+Initial release
+- FastAPI service with PostgreSQL + pgvector integration
+- /documents/search endpoint with cosine similarity
+- Celery/Redis worker for embedding pre-computation
+- GDPR-compliant audit logging
+- Docker packaging and documentation
+- Scalable architecture with design decisions documented
